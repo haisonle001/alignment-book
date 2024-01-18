@@ -1,0 +1,42 @@
+# Model arguments
+model_name_or_path: bkai-foundation-models/vietnamese-llama2-7b-120GB
+model_revision: main
+torch_dtype: bfloat16
+use_flash_attention_2: true
+resume_from_checkpoint: /home/ctv.sangdv/alignment-handbook/ckpt/vietnamese-llama2-7b-120gb-sft-phase1-full-sft-filtered-data/
+# Data training arguments
+dataset_mixer:
+  haisonle001/full_sft_chat_data_filtered_final: 1.0
+dataset_splits:
+- train_sft
+preprocessing_num_workers: 64
+
+# SFT trainer config
+bf16: true
+do_eval: false
+evaluation_strategy: epoch
+gradient_accumulation_steps: 16
+gradient_checkpointing: true
+hub_model_id: haisonle001/vietnamese-llama2-7b-120gb-sft-phase1-full-sft-filtered-data
+hub_strategy: every_save
+learning_rate: 1.0e-05
+log_level: info
+logging_steps: 1
+logging_strategy: steps
+lr_scheduler_type: cosine
+max_seq_length: 1024
+max_steps: -1
+num_train_epochs: 2
+output_dir: ckpt/vietnamese-llama2-7b-120gb-sft-phase1-full-sft-filtered-data
+overwrite_output_dir: false
+per_device_eval_batch_size: 8
+per_device_train_batch_size: 16
+push_to_hub: true
+remove_unused_columns: true
+report_to:
+- tensorboard
+save_strategy: "steps"
+save_steps: 400
+save_total_limit: 8
+seed: 42
+tf32: true
